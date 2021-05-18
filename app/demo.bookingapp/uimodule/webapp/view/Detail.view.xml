@@ -1,0 +1,53 @@
+ <mvc:View controllerName="demo.bookingapp.controller.Detail"
+  displayBlock="true"
+  xmlns="sap.uxap"
+  xmlns:m="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core">
+
+  <ObjectPageLayout id="ObjectPageLayout" showFooter="{viewModel>/editable}" upperCaseAnchorBar="false" busy="{viewModel>/busy}">
+    <headerTitle>
+      <ObjectPageDynamicHeaderTitle >
+        <heading>
+          <m:VBox>
+            <m:Title text="{orderId}"/>
+            <m:Text text="{to_status/name}"/>          
+          </m:VBox>
+        </heading>
+        <actions>
+          <m:Button text="Edit" type="Emphasized" press="onEdit" visible="{= !${viewModel>/editable}}"/>
+          <m:Button text="Delete" type="Ghost" press="onDelete" visible="{= !${viewModel>/editable}}"/>
+        </actions>
+      </ObjectPageDynamicHeaderTitle>
+    </headerTitle>
+    <sections>
+      <ObjectPageSection id="orderInfo" titleUppercase="false" title="Order Information">
+        <subSections>
+          <ObjectPageSubSection>
+            <blocks>
+              <core:Fragment fragmentName="demo.bookingapp.fragments.Form" type="XML" />
+            </blocks>
+          </ObjectPageSubSection>
+        </subSections>
+      </ObjectPageSection>
+
+      <ObjectPageSection id="orderItems" titleUppercase="false" title="Order Items">
+        <subSections>
+          <ObjectPageSubSection>
+            <blocks>
+              <core:Fragment fragmentName="demo.bookingapp.fragments.Items" type="XML" />
+            </blocks>
+          </ObjectPageSubSection>
+        </subSections>
+      </ObjectPageSection>
+    </sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+        <m:Text text="{viewModel>/savingStatus}" visible="{viewModel>/isStatusVisible}"/>
+				<m:Button type="Emphasized" text="Save" press="onSave"/>
+				<m:Button type="Ghost" text="Cancel" press="onCancel"/>
+			</m:OverflowToolbar>
+		</footer>    
+  </ObjectPageLayout>
+</mvc:View>

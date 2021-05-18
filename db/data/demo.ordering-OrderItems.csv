@@ -1,0 +1,4 @@
+ID;itemNumber;product;quantity;price;amount;to_parent_ID
+0eed8db2-1e28-4bca-b0c8-bc2c3dc67618;1;pizzaA;3;3000;9000;4acdac5f-5390-4f0c-9c57-33384c88aa65
+bcc9b4ff-e982-400f-b0c1-726bc57288f6;2;pizzaB;1;1500;1500;4acdac5f-5390-4f0c-9c57-33384c88aa65
+3dcd949e-f4a5-4940-8a77-75972dc2f199;1;pizzaB;1;1500;1500;f7822b79-836b-4788-aab2-268b8b4e4d89

@@ -1,0 +1,59 @@
+ <mvc:View controllerName="demo.bookingapp.controller.List"
+  displayBlock="true"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc">
+  
+  <Table id="table" 
+    items="{
+      path: '/Orders',
+      parameters: {
+        $orderby: 'orderId'
+      }}" mode="MultiSelect" selectionChange="onSelectionChange" busy="{viewModel>/busy}">
+    <headerToolbar>
+      <OverflowToolbar>
+        <content>
+          <Title text="Orders" />
+          <ToolbarSpacer/>
+          <Button icon="sap-icon://add" press="onAdd" /> 
+          <Button text="Delete" press="onDelete" enabled="{viewModel>/deleteEnabled}" />     
+        </content>
+      </OverflowToolbar>
+    </headerToolbar>
+    <columns>
+      <Column>
+        <Text text="Order ID"/>
+      </Column>
+      <Column>
+        <Text text="Order Date"/>
+      </Column>   
+      <Column>
+        <Text text="Order Time"/>
+      </Column>           
+      <Column>
+        <Text text="Comment"/>
+      </Column>        
+      <Column>
+        <Text text="Created At"/>
+      </Column>     
+      <Column>
+        <Text text="Status"/>
+      </Column>    
+      <Column>
+        <Text text="Editing Status"/>
+      </Column>              
+    </columns>
+    <items>
+			<ColumnListItem type="Navigation" press="onDetailPress">
+				<Text text="{orderId}"/>
+        <Text text="{date}"/>
+        <Text text="{time}"/>
+        <Text text="{comment}"/>
+        <Text text="{createdAt}"/>
+        <Text text="{to_status/name}"/>
+        <Text text="{ 
+            path: 'HasDraftEntity',
+            formatter: '.editingStatus'}"/>
+			</ColumnListItem>    
+    </items>  
+  </Table>
+</mvc:View>

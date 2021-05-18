@@ -1,0 +1,46 @@
+<core:FragmentDefinition
+    xmlns="sap.m"   
+    xmlns:core="sap.ui.core">
+
+  <Table id="itemTable" 
+        items="{
+        path: 'to_items',
+        parameters: {
+            $orderby: 'itemNumber'
+        }}" mode="{= ${viewModel>/editable} ? 'Delete' : 'None'}" delete="onDeleteItem">
+    <headerToolbar>
+      <OverflowToolbar>
+        <content>
+          <ToolbarSpacer/>
+          <Button icon="sap-icon://add" visible = "{viewModel>/editable}" press="onAddItem" /> 
+        </content>
+      </OverflowToolbar>
+    </headerToolbar>
+    <columns>
+      <Column>
+        <Text text="No."/>
+      </Column>
+      <Column>
+        <Text text="Product"/>
+      </Column>   
+      <Column>
+        <Text text="Quantity"/>
+      </Column>           
+      <Column>
+        <Text text="Price"/>
+      </Column>        
+      <Column>
+        <Text text="Amount"/>
+      </Column>               
+    </columns>
+    <items>
+        <ColumnListItem id="itemColumnListItem" validateFieldGroup="onValidate">
+            <Text text="{itemNumber}"/>
+            <Input value="{product}" editable="{viewModel>/editable}"/>
+            <Input value="{quantity}" editable="{viewModel>/editable}" fieldGroupIds="amount" />
+            <Input value="{price}" editable="{viewModel>/editable}" fieldGroupIds="amount"/>
+            <Text text="{amount}" />
+        </ColumnListItem>    
+    </items>     
+  </Table>
+</core:FragmentDefinition>

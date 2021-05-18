@@ -1,0 +1,7 @@
+ <mvc:View controllerName="demo.bookingapp.controller.MainView"
+  displayBlock="true"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc">
+  <App id="idAppControl" >
+  </App>
+</mvc:View>
