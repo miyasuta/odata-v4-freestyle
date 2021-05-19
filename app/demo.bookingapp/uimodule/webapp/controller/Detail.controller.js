@@ -156,18 +156,20 @@ sap.ui.define([
         },        
 
         _discardDraft: function (oAction) {
-            if (oAction !== MessageBox.Action.CLOSE) {
-                var oContext = this.getView().getBindingContext();
-                oContext.delete("$auto")
-                .then(()=> {
-                    var deleteMessage = this._getDeleteMessage().deleteMessage;
-                    MessageToast.show(deleteMessage, {
-                        closeOnBrowserNavigation: false
-                    });
-                    var oRouter = this.getOwnerComponent().getRouter();
-                    oRouter.navTo("List");                
-                });
+            if (oAction === MessageBox.Action.CLOSE) { 
+                return
             }
+            
+            var oContext = this.getView().getBindingContext();
+            oContext.delete("$auto")
+            .then(()=> {
+                var deleteMessage = this._getDeleteMessage().deleteMessage;
+                MessageToast.show(deleteMessage, {
+                    closeOnBrowserNavigation: false
+                });
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("List");                
+            });
         },
 
         _handleCreate: function () {

@@ -33,6 +33,7 @@ sap.ui.define([
             });
         },
 
+        //Deleteボタンが押されたら
         onDetailPress: function (oEvent) {
             var id = oEvent.getSource().getBindingContext().getProperty("ID");
             this.getRouter().navTo("Detail", {
@@ -68,7 +69,11 @@ sap.ui.define([
             oTable.getBinding("items").refresh();
         },
 
-        _deleteOrders: function () {
+        _deleteOrders: function (oAction) {
+            if (oAction === MessageBox.Action.CLOSE) { 
+                return
+            }
+
             var oTable = this.byId("table");
             var aContexts = oTable.getSelectedContexts();
             this.setProperty("viewModel", "busy", true);
