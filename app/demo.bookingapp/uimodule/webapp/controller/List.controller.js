@@ -33,7 +33,6 @@ sap.ui.define([
             });
         },
 
-        //Deleteボタンが押されたら
         onDetailPress: function (oEvent) {
             var id = oEvent.getSource().getBindingContext().getProperty("ID");
             this.getRouter().navTo("Detail", {

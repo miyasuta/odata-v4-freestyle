@@ -145,9 +145,9 @@ sap.ui.define([
 
         _onRouteMatched: function (oEvent) {
             var oArgs = oEvent.getParameter("arguments");
-            var id = decodeURIComponent(oArgs.id);
+            var id = oArgs.id;
             //create
-            if (id === "undefined") {
+            if (id === undefined) {
                 this._handleCreate();
             //edit or display
             } else {
@@ -159,7 +159,7 @@ sap.ui.define([
             if (oAction === MessageBox.Action.CLOSE) { 
                 return
             }
-            
+
             var oContext = this.getView().getBindingContext();
             oContext.delete("$auto")
             .then(()=> {
@@ -181,6 +181,9 @@ sap.ui.define([
                 this._attachPatchEvents();
                 this._mode = 1;                
                 this._setEditable(true);
+            })
+            .catch(error => {
+                MessageBox.error(error.message, {});
             });
         },
 
@@ -188,11 +191,13 @@ sap.ui.define([
             var oModel = this.getModel();
             var oContextBinding = oModel.bindContext(`/Orders(ID=${id},IsActiveEntity=true)`);
             var oContext = oContextBinding.getBoundContext();
-            var that = this;
             oContext.requestProperty("HasDraftEntity")
             .then(hasDraft => {
                 //bind context to the view
-                that._bindContext(hasDraft, id, oContext);
+                this._bindContext(hasDraft, id, oContext);
+                this._attachPatchEvents();
+                this._getOrderId();
+
                 if (hasDraft) {
                     //open in edit mode
                     this._mode = 2;
@@ -202,10 +207,6 @@ sap.ui.define([
                     this._mode = 3;
                     this._setEditable(false);
                 }
-            })
-            .then(() => {
-                that._attachPatchEvents();
-                that._getOrderId();
             })
             .catch(error => {
                 console.log(error);
