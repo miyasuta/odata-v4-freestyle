@@ -10,16 +10,16 @@ const checkDeliveryDate = function (req) {
 const setTotalAmount = async function (req, to_parent_ID, itemAmount) {
     //calculate total amount
     //1. get all items belonging to the same parent order
-    const q3 =  SELECT.one.from `OrderingService_OrderItems_drafts`
+    const q1 =  SELECT.one.from `OrderingService_OrderItems_drafts`
     .columns `{sum(amount) as restAmount}`
     .where `to_parent_ID = ${to_parent_ID} and ID <> ${req.data.ID}`
-    const {restAmount} = await cds.tx(req).run(q3)
+    const {restAmount} = await cds.tx(req).run(q1)
     const totalAmount = itemAmount + restAmount
 
     //2. set total amount to header
-    const q4 = UPDATE `OrderingService_Orders_drafts` .set `totalAmount = ${totalAmount}`
+    const q2 = UPDATE `OrderingService_Orders_drafts` .set `totalAmount = ${totalAmount}`
                 .where `ID = ${to_parent_ID}`
-    return cds.tx(req).run(q4)
+    return cds.tx(req).run(q2)
 }
 
 module.exports = function () {
@@ -37,11 +37,11 @@ module.exports = function () {
         req.data.to_status_ID = 1
 
         //set item numbers
-        if (req.data.to_items) {
-            req.data.to_items.forEach((item, index) => {
-                item.itemNumber = index + 1
-            })
-        }
+        // if (req.data.to_items) {
+        //     req.data.to_items.forEach((item, index) => {
+        //         item.itemNumber = index + 1
+        //     })
+        // }
     })
 
     this.before('UPDATE', 'Orders', (req) => {

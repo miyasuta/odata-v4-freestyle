@@ -103,13 +103,16 @@ sap.ui.define([
         },     
 
         onValidate: function (oEvent) {
-            this._requestTotalAmount();
+            var filedGroupId = oEvent.getSource().getFieldGroupIds()[0];
+            if (filedGroupId === "amount") {
+                this._requestTotalAmount();
+            }            
         },
 
         _requestTotalAmount: function () {
             this.getView().getObjectBinding().getBoundContext().requestSideEffects([{
                 $PropertyPath: "totalAmount"
-            }]);
+            }], "$auto");
         },
 
         _doCheck: function () {
